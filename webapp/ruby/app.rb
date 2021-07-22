@@ -177,7 +177,8 @@ class App < Sinatra::Base
       'users.id AS `u_id`, users.email AS "u_email", users.nickname AS `u_nickname`, users.staff AS `u_staff`, users.created_at AS `u_created_at` ' +
       'FROM schedules LEFT JOIN reservations ON reservations.schedule_id = schedules.id LEFT JOIN users ON users.id = reservations.user_id WHERE `schedules`.`id` = ?',
       id)
-    halt(404, {}) if result&.size < 1
+
+    halt(404, {}) if result.first.nil?
     
     schedule = {}
     schedule[:id] =           result.first[:id]
