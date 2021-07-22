@@ -27,7 +27,9 @@ CREATE TABLE `reservations` (
   `schedule_id` varchar(255) NOT NULL,
   `user_id` varchar(255) NOT NULL,
   `created_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX res_user_sche (`schedule_id`, `user_id`),
+  INDEX schedule_id_index (`schedule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
