@@ -1,0 +1,4 @@
+#!/bin/bash
+set -o errexit -o pipefail -o xtrace
+
+find isucon11-prior/config/ -type f -printf '%P\n' | xargs -t -n1 -I{} sudo ln -sf /home/isucon/isucon11-prior/config/{} /{}
