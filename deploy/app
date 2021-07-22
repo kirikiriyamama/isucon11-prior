@@ -6,8 +6,9 @@ webapp_dir=/home/isucon/isucon11-prior/webapp
 cd ${webapp_dir}
 git reset --hard HEAD
 git fetch -p
-git checkout origin/${1:-master}
+git switch --detach origin/${1:-master}
 
 cd ${webapp_dir}/ruby
-bundle install --without=development
+bundle config set --local without 'development'
+bundle install
 sudo systemctl restart web-ruby
