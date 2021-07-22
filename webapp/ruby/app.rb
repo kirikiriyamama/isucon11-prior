@@ -161,10 +161,7 @@ class App < Sinatra::Base
   end
 
   get '/api/schedules' do
-    schedules = db.xquery('SELECT * FROM `schedules` ORDER BY `id` DESC');
-    schedules.each do |schedule|
-      get_reservations_count(schedule)
-    end
+    schedules = db.xquery('SELECT schedules.id, schedules.title, schedules.capacity, schedules.created_at, COUNT(schedules.id) AS reserved FROM schedules INNER JOIN reservations ON schedules.id = reservations.schedule_id GROUP BY schedules.id ORDER BY schedules.id DESC')
 
     json(schedules.to_a)
   end
