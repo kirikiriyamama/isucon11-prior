@@ -171,10 +171,35 @@ class App < Sinatra::Base
 
   get '/api/schedules/:id' do
     id = params[:id]
-    schedule = db.xquery('SELECT * FROM `schedules` WHERE id = ? LIMIT 1', id).first
-    halt(404, {}) unless schedule
-
-    get_reservations(schedule)
+    result = db.xquery(
+      'SELECT schedules.id AS id, schedules.title AS title , schedules.capacity AS capacity, schedules.created_at AS created_at, reservations.id AS `r_id`, ' +
+      'reservations.schedule_id AS `r_schedule_id`, reservations.created_at AS "r_created_at", reservations.user_id AS `r_user_id`, ' +
+      'users.id AS `u_id`, users.email AS "u_email", users.nickname AS `u_nickname`, users.staff AS `u_staff`, users.created_at AS `u_created_at` ' +
+      'FROM schedules INNER JOIN reservations ON reservations.schedule_id = schedules.id INNER JOIN users ON users.id = reservations.user_id WHERE `schedules`.`id` = ?',
+      id)
+    halt(404, {}) if result&.size < 1
+    
+    schedule = {}
+    schedule[:id] =           result.first[:id]
+    schedule[:title] =        result.first[:title]
+    schedule[:capacity] =     result.first[:capacity]
+    schedule[:created_at] =   result.first[:created_at]
+    schedule[:reserved] =     result.size
+    schedule[:reservations] = result.map do |reservation|
+      {
+        id:          reservation[:r_id],
+        schedule_id: reservation[:r_schedule_id],
+        user_id:     reservation[:r_user_id],
+        created_at:  reservation[:r_created_at],
+        user: {
+          id:         reservation[:u_id],
+          email:      reservation[:u_email],
+          nickname:   reservation[:u_nickname],
+          staff:      reservation[:u_staff],
+          created_at: reservation[:u_created_at],
+        }
+      }
+    end
 
     json(schedule)
   end
