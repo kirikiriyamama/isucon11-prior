@@ -17,5 +17,11 @@
 #   The files must end with '.cnf', otherwise they'll be ignored.
 #
 
+[mysqld]
+slow_query_log=1
+long_query_time=1
+log_queries_not_using_indexes=1
+slow_query_log_file=/var/log/mysql/slow_query.log
+
 !includedir /etc/mysql/conf.d/
 !includedir /etc/mysql/mysql.conf.d/
