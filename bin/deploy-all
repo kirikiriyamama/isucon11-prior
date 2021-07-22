@@ -1,0 +1,6 @@
+#!/bin/bash
+set -o errexit -o pipefail -o xtrace
+
+for host in isucon11-prior-{1..3}; do
+  ssh ${host} /home/isucon/.x /home/isucon/isucon11-prior/bin/deploy ${1:-master}
+done
