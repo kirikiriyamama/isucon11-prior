@@ -80,7 +80,8 @@ CREATE TABLE `users` (
   `nickname` varchar(120) NOT NULL DEFAULT '',
   `staff` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  INDEX email_index (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
