@@ -1,0 +1,13 @@
+#!/bin/bash
+set -o errexit -o pipefail -o xtrace
+
+webapp_dir=/home/isucon/webapp
+
+cd ${webapp_dir}
+git reset --hard HEAD
+git fetch -p
+git checkout origin/${1:-master}
+
+cd ${webapp_dir}/ruby
+bundle install --without=development
+sudo systemctl restart web-ruby
