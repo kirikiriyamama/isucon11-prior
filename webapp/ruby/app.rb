@@ -179,6 +179,7 @@ class App < Sinatra::Base
       id)
 
     halt(404, {}) if result.first.nil?
+    cur_user = current_user
     
     schedule = {}
     schedule[:id] =           result.first[:id]
@@ -194,7 +195,7 @@ class App < Sinatra::Base
         created_at:  reservation[:r_created_at],
         user: {
           id:         reservation[:u_id],
-          email:      reservation[:u_email],
+          email:      (cur_user && cur_user[:staff] ? reservation[:u_email] : ''),
           nickname:   reservation[:u_nickname],
           staff:      reservation[:u_staff],
           created_at: reservation[:u_created_at],
