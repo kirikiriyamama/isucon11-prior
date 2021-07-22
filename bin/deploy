@@ -12,3 +12,5 @@ cd ${webapp_dir}/ruby
 bundle config set --local without 'development'
 bundle install
 sudo systemctl restart web-ruby
+
+/home/isucon/isucon11-prior/webapp/tools/initdb
