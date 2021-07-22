@@ -1,7 +1,7 @@
 #!/bin/bash
 set -o errexit -o pipefail -o xtrace
 
-webapp_dir=/home/isucon/webapp
+webapp_dir=/home/isucon/isucon11-prior/webapp
 
 cd ${webapp_dir}
 git reset --hard HEAD
