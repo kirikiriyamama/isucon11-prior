@@ -23,5 +23,6 @@ CREATE TABLE `reservations` (
   `schedule_id` VARCHAR(255) NOT NULL,
   `user_id`     VARCHAR(255) NOT NULL,
   `created_at`  DATETIME(6) NOT NULL,
-  UNIQUE INDEX res_user_sche (`schedule_id`, `user_id`)
+  UNIQUE INDEX res_user_sche (`schedule_id`, `user_id`),
+  INDEX schedule_id_index (`schedule_id`)
 ) ENGINE=InnoDB DEFAULT CHARACTER SET=utf8mb4;
