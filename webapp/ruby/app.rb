@@ -175,7 +175,7 @@ class App < Sinatra::Base
       'SELECT schedules.id AS id, schedules.title AS title , schedules.capacity AS capacity, schedules.created_at AS created_at, reservations.id AS `r_id`, ' +
       'reservations.schedule_id AS `r_schedule_id`, reservations.created_at AS "r_created_at", reservations.user_id AS `r_user_id`, ' +
       'users.id AS `u_id`, users.email AS "u_email", users.nickname AS `u_nickname`, users.staff AS `u_staff`, users.created_at AS `u_created_at` ' +
-      'FROM schedules INNER JOIN reservations ON reservations.schedule_id = schedules.id INNER JOIN users ON users.id = reservations.user_id WHERE `schedules`.`id` = ?',
+      'FROM schedules LEFT JOIN reservations ON reservations.schedule_id = schedules.id LEFT JOIN users ON users.id = reservations.user_id WHERE `schedules`.`id` = ?',
       id)
     halt(404, {}) if result&.size < 1
     
