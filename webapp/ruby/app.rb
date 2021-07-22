@@ -52,10 +52,10 @@ class App < Sinatra::Base
       schedule[:reserved] = reservations.size
     end
 
-    def get_reservations_count(schedule)
-      reservations = db.xquery('SELECT * FROM `reservations` WHERE `schedule_id` = ?', schedule[:id])
-      schedule[:reserved] = reservations.size
-    end
+    # def get_reservations_count(schedule)
+    #   reservations = db.xquery('SELECT * FROM `reservations` WHERE `schedule_id` = ?', schedule[:id])
+    #   schedule[:reserved] = reservations.size
+    # end
 
     def get_user(id)
       user = db.xquery('SELECT * FROM `users` WHERE `id` = ? LIMIT 1', id).first
